@@ -42,7 +42,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context: /docker-stacks-foundation
+          context: ./docker-stacks-foundation
           platforms: linux/amd64,linux/amd64/v2,linux/amd64/v3,linux/arm64,linux/arm/v7,linux/arm/v8
           push: true
           tags: |
