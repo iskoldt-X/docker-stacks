@@ -1,7 +1,7 @@
 name: Download parent image, build a new one and test it; then upload the image, tags and manifests to GitHub artifacts
 
 env:
-  OWNER: ${{ github.repository_owner }}
+  OWNER: $(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')
 
 on:
   workflow_call:
@@ -51,6 +51,9 @@ jobs:
         with:
           image: ${{ inputs.parentImage }}
           platform: ${{ inputs.platform }}
+          
+      - name: change name
+        run: GITOWNER=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')
 
       - name: Build image 🛠
         run: docker build --rm --force-rm --tag ${{ env.OWNER }}/${{ inputs.image }} ${{ inputs.image }}/
